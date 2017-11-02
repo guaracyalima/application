@@ -1,0 +1,36 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Eleja-se - ERP de relacionamentos politicos",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/api/candidates": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "idade": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Requisitar token JWT"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

@@ -221,7 +221,7 @@ class CandidatesController extends Controller
                 'data' => $candidate
             ];
 
-            return route('candidates');
+     return redirect()->route('candidates');
     }
 
 

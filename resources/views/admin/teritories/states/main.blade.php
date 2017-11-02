@@ -11,7 +11,7 @@
                     <div class="card-header">
                         <div class="fixed-table-toolbar"><div class="bars pull-left">
                                 <div id="toolbar">
-                                    
+
                                 </div>
                             </div>
                             <div class="columns columns-right btn-group pull-right">

@@ -26,6 +26,7 @@ Route::group(['middleware' => ['cors']], function () {
 
 
 //    Route::group(['middleware' => ['jwt.auth']], function () {
+//the routing middleware
 
         Route::group(['prefix' => 'users'], function () {
             Route::get('', 'UsersController@index');

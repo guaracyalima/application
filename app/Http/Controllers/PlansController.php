@@ -41,8 +41,9 @@ class PlansController extends Controller
      */
     public function index()
     {
-        $plans = $this->repository->paginate(3);
-        return view('admin.plans.main', ['plans' => $plans]);
+        $plans = $this->repository->all();
+        return response()->json($plans);
+        //return view('admin.plans.main', ['plans' => $plans]);
     }
 
 

@@ -45,10 +45,10 @@ class BrokensController extends Controller
 
         //if (request()->wantsJson()) {
 
-            //return response()->json($brokens);
+            return response()->json($brokens);
         //}
 
-        return view('brokens.index', compact('brokens'));
+        //return view('brokens.index', compact('brokens'));
     }
 
     /**

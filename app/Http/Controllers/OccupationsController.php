@@ -43,8 +43,9 @@ class OccupationsController extends Controller
      */
     public function index()
     {
-        $occupation = $this->repository->paginate(5);
-        return view('admin.occupations.main', ['occupations' => $occupation]);
+        $occupation = $this->repository->all();
+        return response()->json($occupation);
+        //return view('admin.occupations.main', ['occupations' => $occupation]);
     }
 
     public function create()

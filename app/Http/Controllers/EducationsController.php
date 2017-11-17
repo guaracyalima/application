@@ -28,25 +28,14 @@ class EducationsController extends Controller
 
     public function index()
     {
-        $educations = $this->repository->paginate(10);
-       // return response()->json($educations);
-
-        //return view('educations.index', compact('educations'));
-	// $educations = $this->repository->paginate(5);
-
-        //if (request()->wantsJson()) {
-
-            //return response()->json(
-              // $educations
-            //);
-        //}
-        return view('admin.educations.main', ['educations' => $educations]);
+        $educations = $this->repository->all();
+        return response()->json($educations);
+        //return view('admin.educations.main', ['educations' => $educations]);
     }
 
     public function create()
     {
         return view('admin.educations.create');
-//>>>>>>> 4e54871b73fe2cb6b2eb98e4fc9ec8123c502204
     }
 
     public function store(EducationsCreateRequest $request)

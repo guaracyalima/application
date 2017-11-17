@@ -64,10 +64,10 @@ class VotersController extends Controller
      */
     public function index()
     {
-        $voters = $this->repository->paginate(5);
-        //return response()->json($voters);
+        $voters = $this->repository->all();
+        return response()->json($voters);
 
-        return view ('admin.peoples.voters.main', ['voters' => $voters]);
+        //return view ('admin.peoples.voters.main', ['voters' => $voters]);
     }
 
     public function create()
@@ -102,7 +102,7 @@ class VotersController extends Controller
     {
 
         $data =  $request->all();
-        $data['created_by'] = Auth::user()->getAuthIdentifier();
+        $data['created_by'] = 1;#Auth::user()->getAuthIdentifier();
         $candidate = $this->service->create($data);
 
         $response = [
@@ -110,7 +110,7 @@ class VotersController extends Controller
             'data' => $candidate->toArray(),
         ];
 
-        return $response;
+        return response()->json($response);
     }
 
 
@@ -124,9 +124,7 @@ class VotersController extends Controller
     public function show($id)
     {
         $voter = $this->repository->find($id);
-
-
-        return response()->json(compact('voter'));
+        return response()->json($voter);
     }
 
 
@@ -164,9 +162,6 @@ class VotersController extends Controller
     public function update(VoterUpdateRequest $request, $id)
     {
 
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
             $voter = $this->repository->update($request->all(), $id);
 
@@ -175,24 +170,7 @@ class VotersController extends Controller
                 'data'    => $voter->toArray(),
             ];
 
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+          return response()->json($response);
     }
 
 
@@ -206,8 +184,6 @@ class VotersController extends Controller
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);
-
-
 
             return response()->json([
                 'message' => 'Voter deleted.',

@@ -73,9 +73,9 @@ class CollaboratorsController extends Controller
      */
     public function index()
     {
-        $collaborator = $this->repository->paginate(5);
-        //return response()->json($collaborator);
-        return view ('admin.peoples.colaborators.main', ['colaborator' => $collaborator]);
+        $collaborator = $this->repository->all();
+        return response()->json($collaborator);
+        //return view ('admin.peoples.colaborators.main', ['colaborator' => $collaborator]);
     }
 
     public function create (  )
@@ -110,7 +110,7 @@ class CollaboratorsController extends Controller
         ]);
         $id_user_off = collect(User::all())->last();
         $data['user_id'] = $id_user_off['id'];
-        $data['created_by'] = Auth::user()->getAuthIdentifier();
+        $data['created_by'] = 1; #Auth::user()->getAuthIdentifier();
 
         $candidate = $this->repository->create($data);
 
@@ -119,7 +119,7 @@ class CollaboratorsController extends Controller
             'data' => $candidate
         ];
 
-        return redirect()->route('colaborator');
+        return response()->json($response);#redirect()->route('colaborator');
     }
 
 
@@ -133,15 +133,10 @@ class CollaboratorsController extends Controller
     public function show($id)
     {
         $collaborator = $this->repository->find($id);
+            return response()->json($collaborator);
 
-        if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $collaborator,
-            ]);
-        }
-
-        return view('admin.peoples.colaborators.show', ['collaborator' => $collaborator]);
+        //return view('admin.peoples.colaborators.show', ['collaborator' => $collaborator]);
     }
 
 
@@ -155,22 +150,12 @@ class CollaboratorsController extends Controller
     public function edit($id)
     {
 
-        $uf = $this->stateRepository->pluck('name', 'id');
-        $candidate = $this->candidateRepository->pluck('name', 'id');
-        $education = $this->educationsRepository->pluck('description', 'id');
-        $ocupation = $this->occupationRepository->pluck('name', 'id');
+        // $uf = $this->stateRepository->pluck('name', 'id');
+        // $candidate = $this->candidateRepository->pluck('name', 'id');
+        // $education = $this->educationsRepository->pluck('description', 'id');
+        // $ocupation = $this->occupationRepository->pluck('name', 'id');
         $collaborator = $this->repository->find($id);
-
-        return view('admin.peoples.colaborators.edit',
-            [
-                'collaborator' => $collaborator,
-                'uf' => $uf,
-                'candidate' => $candidate,
-                'educations' => $education,
-                'ocupations' => $ocupation
-            ]
-        );
-
+        return response()->json($collaborator);
 
     }
 
@@ -191,8 +176,9 @@ class CollaboratorsController extends Controller
                 'message' => 'Collaborator updated.',
                 'data'    => $collaborator
             ];
+            return response()->json($response);
 
-     return redirect()->route('colaborator');
+     //return redirect()->route('colaborator');
     }
 
 
@@ -207,15 +193,12 @@ class CollaboratorsController extends Controller
     {
         $deleted = $this->repository->delete($id);
 
-//        if (request()->wantsJson()) {
-
-//            return response()->json([
-//                'message' => 'Collaborator deleted.',
-//                'deleted' => $deleted,
-//            ]);
-
+           return response()->json([
+               'message' => 'Collaborator deleted.',
+               'deleted' => $deleted,
+           ]);
 
         //return redirect()->back()->with('message', 'Collaborator deleted.');
-        return redirect()->route('colaborator');
+        //return redirect()->route('colaborator');
     }
 }

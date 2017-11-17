@@ -87,9 +87,12 @@ class CandidatesController extends Controller
      */
     public function index()
     {
-        $candidates = $this->repository->paginate(10);
-        //return response()->json($candidates);
-        return view ('admin.peoples.candidates.main', ['candidates' => $candidates]);
+        $candidates = $this->repository->all();
+        // $k = new AuthController;
+        // $k->getAuthenticatedUser();
+        // dd($k);
+        return response()->json($candidates);
+        //return view ('admin.peoples.candidates.main', ['candidates' => $candidates]);
 
     }
 
@@ -148,14 +151,15 @@ class CandidatesController extends Controller
 
         $id_user_off = collect(User::all())->last();
         $data['user_id'] = $id_user_off['id'];
-        $data['created_by'] = Auth::user()->getAuthIdentifier();
+        $data['created_by'] = 1; #Auth::user()->getAuthIdentifier();
         $candidate = $this->service->create($data);
         $response = [
             'message' => 'Candidate created.',
             'data' => $candidate
         ];
 
-     return redirect()->route('candidates');
+        return response()->json($response);
+     //return redirect()->route('candidates');
 
     }
 
@@ -170,8 +174,8 @@ class CandidatesController extends Controller
     public function show($id)
     {
         $candidate = $this->repository->find($id);
-
-        return view('admin.peoples.candidates.show', ['candidate' => $candidate]);
+        return response()->json($candidate);
+        //return view('admin.peoples.candidates.show', ['candidate' => $candidate]);
 
     }
 
@@ -221,7 +225,9 @@ class CandidatesController extends Controller
                 'data' => $candidate
             ];
 
-     return redirect()->route('candidates');
+            return response()->json($response);
+
+     //return redirect()->route('candidates');
     }
 
 
@@ -243,4 +249,5 @@ class CandidatesController extends Controller
             ]);
 
     }
+
 }

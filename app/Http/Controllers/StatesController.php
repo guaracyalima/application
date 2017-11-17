@@ -49,11 +49,10 @@ class StatesController extends Controller
      */
     public function index()
     {
-        $state = $this->repository->paginate(10);
-        //return response()->json($state);
+        $state = $this->repository->all();
+        return response()->json($state);
 
-//        $state = $this->repository->paginate(5);
-     return view('admin.teritories.states.main', ['states' => $state]);
+        //return view('admin.teritories.states.main', ['states' => $state]);
     }
 
     public function create()

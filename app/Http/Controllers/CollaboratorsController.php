@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Collaborator;
 use App\Entities\User;
 use App\Repositories\CandidateRepository;
 use App\Repositories\EducateducationRepository;
@@ -122,73 +123,22 @@ class CollaboratorsController extends Controller
         return response()->json($response);#redirect()->route('colaborator');
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $collaborator = $this->repository->find($id);
-            return response()->json($collaborator);
-
-
-        //return view('admin.peoples.colaborators.show', ['collaborator' => $collaborator]);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-        // $uf = $this->stateRepository->pluck('name', 'id');
-        // $candidate = $this->candidateRepository->pluck('name', 'id');
-        // $education = $this->educationsRepository->pluck('description', 'id');
-        // $ocupation = $this->occupationRepository->pluck('name', 'id');
-        $collaborator = $this->repository->find($id);
         return response()->json($collaborator);
-
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  CollaboratorUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     */
     public function update(Request $request, $id)
     {
             $collaborator = $this->repository->update($request->all(), $id);
-
             $response = [
                 'message' => 'Collaborator updated.',
                 'data'    => $collaborator
             ];
             return response()->json($response);
-
-     //return redirect()->route('colaborator');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);
@@ -197,8 +147,13 @@ class CollaboratorsController extends Controller
                'message' => 'Collaborator deleted.',
                'deleted' => $deleted,
            ]);
+    }
 
-        //return redirect()->back()->with('message', 'Collaborator deleted.');
-        //return redirect()->route('colaborator');
+    public function  my( $id )
+    {
+     $my_collaborators =  Collaborator::where('candidate_id', $id)
+         ->orderBy ('id', 'desc')
+         ->get ();
+      return response()->json($my_collaborators);
     }
 }

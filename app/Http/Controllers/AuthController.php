@@ -13,13 +13,19 @@ class AuthController extends Controller
     public function auth(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        $user = User::first()->attributesToArray();
-
+        $user =  User::where('email', $credentials['email'])->get()->toArray ();
+        foreach ($user as $u)
+        {
+         $name = $u['name'];
+         $email = $u['email'];
+         $role = $u['type'];
+         $id = $u['id'];
+        }
         $customClaims = [
-          'name' => $user['name'],
-          'email' => $user['email'],
-          'id' => $user['id'],
+          'name' => $name,
+          'email' => $email,
+          'id' => $id,
+          'role' => $role,
         ];
 
         try

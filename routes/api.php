@@ -71,6 +71,7 @@ Route::group(['middleware' => ['cors']], function () {
             Route::get('/{id}', 'CollaboratorsController@show');
             Route::put('/{id}', 'CollaboratorsController@update');
             Route::delete('/{id}', 'CollaboratorsController@destroy');
+            Route::get('/my/{id}', 'CollaboratorsController@my');
         });
 
         Route::group(['prefix' => 'teritories'], function () {

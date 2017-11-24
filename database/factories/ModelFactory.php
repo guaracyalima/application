@@ -23,6 +23,12 @@ $factory->define(App\Entities\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Entities\Roler::class, function (Faker\Generator $faker) {
+    return [
+        'role' => $faker->word,
+        'description' => $faker->word
+    ];
+});
 
 $factory->define(App\Entities\Candidate::class, function (Faker\Generator $faker) {
 

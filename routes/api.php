@@ -20,12 +20,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['cors']], function () {
 
-    Route::group(['prefix' => 'auth'], function () {
+    Route::group(['prefix' => 'login'], function () {
         Route::post('', 'AuthController@auth');
+
     });
 
+    Route::get('me', 'AuthController@bodao');
 
-//    Route::group(['middleware' => ['jwt.auth']], function () {
+
+
+
+  // Route::group(['middleware' => ['jwt.auth']], function () {
 //the routing middleware
 
         Route::group(['prefix' => 'users'], function () {
@@ -125,13 +130,21 @@ Route::group(['middleware' => ['cors']], function () {
         });
 
 
-    Route::group(['prefix' => 'brokens'], function () {
-        Route::get('', 'BrokensController@index');
-        Route::post('', 'BrokensController@store');
-        Route::get('/{id}', 'BrokensController@show');
-        Route::put('/{id}', 'BrokensController@update');
-        Route::delete('/{id}', 'BrokensController@destroy');
-    });
+        Route::group(['prefix' => 'brokens'], function () {
+          Route::get('', 'BrokensController@index');
+          Route::post('', 'BrokensController@store');
+          Route::get('/{id}', 'BrokensController@show');
+          Route::put('/{id}', 'BrokensController@update');
+          Route::delete('/{id}', 'BrokensController@destroy');
+        });
+
+        Route::group(['prefix' => 'rolers'], function () {
+          Route::get('', 'RolersController@index');
+          Route::post('', 'RolersController@store');
+          Route::get('/{id}', 'RolersController@show');
+          Route::put('/{id}', 'RolersController@update');
+          Route::delete('/{id}', 'RolersController@destroy');
+        });
 
         Route::get('/sms/send/{to}', function(\Nexmo\Client $nexmo, $to){
             $message = $nexmo->message()->send([
@@ -142,7 +155,7 @@ Route::group(['middleware' => ['cors']], function () {
             Log::info('sent message: ' . $message['message-id']);
         });
 
-    //});
+  //  });
 
 
 });

@@ -20,16 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(StatateTableSeeder::class);
         $this->call(CityTableSeeder::class);
         $this->call(PackageTableSeeder::class);
-        //$this->call(SendMailTableSeeder::class);
-
+        $this->call(RolerTableSeeder::class);
         $this->call(CandidateTableSeeder::class);
         $this->call(VoterTableSeeder::class);
         $this->call(CollaboratorTableSeeder::class);
-
-
-
-
-
-
     }
 }

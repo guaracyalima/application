@@ -151,7 +151,7 @@ class CandidatesController extends Controller
 
         $id_user_off = collect(User::all())->last();
         $data['user_id'] = $id_user_off['id'];
-        $data['created_by'] = 1; #Auth::user()->getAuthIdentifier();
+        //$data['created_by'] = 1; #Auth::user()->getAuthIdentifier();
         $candidate = $this->service->create($data);
         $response = [
             'message' => 'Candidate created.',

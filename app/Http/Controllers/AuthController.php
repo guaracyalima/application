@@ -6,6 +6,7 @@ use App\Entities\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,11 @@ class AuthController extends Controller
 
         $user = User::first()->attributesToArray();
 
-        $customClaims = ['name' => $user['name']];
+        $customClaims = [
+          'name' => $user['name'],
+          'email' => $user['email'],
+          'id' => $user['id'],
+        ];
 
         try
         {
@@ -38,6 +43,7 @@ class AuthController extends Controller
 
     public function getAuthenticatedUser()
     {
+
     	try {
 
     		if (! $user = JWTAuth::parseToken()->authenticate()) {

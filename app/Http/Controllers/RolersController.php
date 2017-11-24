@@ -21,15 +21,10 @@ class RolersController extends Controller
      */
     protected $repository;
 
-    /**
-     * @var RolerValidator
-     */
-    protected $validator;
 
-    public function __construct(RolerRepository $repository, RolerValidator $validator)
+    public function __construct(RolerRepository $repository)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
     }
 
 
@@ -55,10 +50,7 @@ class RolersController extends Controller
      */
     public function store(RolerCreateRequest $request)
     {
-
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+            //$this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $roler = $this->repository->create($request->all());
 
@@ -67,22 +59,9 @@ class RolersController extends Controller
                 'data'    => $roler->toArray(),
             ];
 
-            if ($request->wantsJson()) {
+
 
                 return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
     }
 
 
@@ -97,14 +76,14 @@ class RolersController extends Controller
     {
         $roler = $this->repository->find($id);
 
-        if (request()->wantsJson()) {
+
 
             return response()->json([
                 'data' => $roler,
             ]);
-        }
 
-        return view('rolers.show', compact('roler'));
+
+
     }
 
 
@@ -117,10 +96,7 @@ class RolersController extends Controller
      */
     public function edit($id)
     {
-
-        $roler = $this->repository->find($id);
-
-        return view('rolers.edit', compact('roler'));
+        return $roler = $this->repository->find($id);
     }
 
 
@@ -135,10 +111,6 @@ class RolersController extends Controller
     public function update(RolerUpdateRequest $request, $id)
     {
 
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
             $roler = $this->repository->update($request->all(), $id);
 
             $response = [
@@ -146,24 +118,8 @@ class RolersController extends Controller
                 'data'    => $roler->toArray(),
             ];
 
-            if ($request->wantsJson()) {
-
                 return response()->json($response);
-            }
 
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
     }
 
 
@@ -177,15 +133,9 @@ class RolersController extends Controller
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);
-
-        if (request()->wantsJson()) {
-
             return response()->json([
                 'message' => 'Roler deleted.',
                 'deleted' => $deleted,
             ]);
-        }
-
-        return redirect()->back()->with('message', 'Roler deleted.');
     }
 }

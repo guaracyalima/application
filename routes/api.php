@@ -156,6 +156,10 @@ Route::group(['middleware' => ['cors']], function () {
             Log::info('sent message: ' . $message['message-id']);
         });
 
+    Route::group(['prefix' => 'report'], function () {
+        Route::get('', 'ReportController@index');
+    });
+
   //  });
 
 

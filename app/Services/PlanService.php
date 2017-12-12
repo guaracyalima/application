@@ -53,12 +53,12 @@ class PlanService
 
     }
 
-    public function update(array $data)
+    public function update(array $data, $id)
     {
         try
         {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->update($data);
+            return $this->repository->update($data, $id);
         }
         catch (ValidationException $exception)
         {

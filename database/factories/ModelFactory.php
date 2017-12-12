@@ -111,7 +111,7 @@ $factory->define(App\Entities\Plan::class, function (Faker\Generator $faker) {
 $factory->define(App\Entities\Collaborator::class, function (Faker\Generator $faker) {
     return [
         'user_id' => rand(1, 2),
-        'candidate_id' => rand(4, 10),
+        'candidate_id' => rand(1, 10),
         'name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'nickname' => $faker->word,

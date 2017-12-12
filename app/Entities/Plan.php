@@ -10,7 +10,15 @@ class Plan extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $guarded = [];
+    protected $fillable = [
+      'name',
+      'max_users',
+      'max_electors',
+      'sms_quantity',
+      'emails_quantity',
+      'price',
+      'renewal_frequency'
+    ];
 
     public function candidate()
     {

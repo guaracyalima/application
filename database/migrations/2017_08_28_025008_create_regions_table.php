@@ -13,7 +13,7 @@ class CreateRegionsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('teritories', function(Blueprint $table) {
+		Schema::create('regions', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -21,7 +21,7 @@ class CreateRegionsTable extends Migration
 
         Schema::table('states', function($table) {
 
-            $table->foreign('region_id')->references('id')->on('teritories')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
         });
 	}
 

@@ -118,38 +118,17 @@ class PlansController extends Controller
      *
      * @return Response
      */
-    public function update(PlanUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
 
-        //try {
+        //dd($request->all());
+        $plan = $this->service->update($request->all(), $id);
 
-           // $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $plan = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'Plan updated.',
-                'data'    => $plan->toArray(),
-            ];
-
-//            if ($request->wantsJson()) {
-//
-//                return response()->json($response);
-//            }
-
-            return redirect()->back()->with('message', $response['message']);
-//        } catch (ValidatorException $e) {
-//
-//            if ($request->wantsJson()) {
-//
-//                return response()->json([
-//                    'error'   => true,
-//                    'message' => $e->getMessageBag()
-//                ]);
-//            }
-//
-//            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-       // }
+        $response = [
+            'message' => 'Plan has been updated.',
+            'data'    => $plan->toArray(),
+        ];
+        return response()->json($response);
     }
 
 

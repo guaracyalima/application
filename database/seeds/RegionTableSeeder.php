@@ -12,7 +12,7 @@ class RegionTableSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get("database/data/teritories.json");
+        $json = File::get("database/data/regions.json");
         $regions = json_decode($json);
         foreach ($regions as $region){
             Region::create(array(

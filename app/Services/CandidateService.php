@@ -24,12 +24,18 @@ class CandidateService
      * @var CandidateValidator
      */
     private $validator;
+    /**
+     * @var PlanService
+     */
+    private $planService;
 
-    public function __construct(CandidateRepository $repository, CandidateValidator $validator)
+    public function __construct(CandidateRepository $repository,
+                                CandidateValidator $validator,
+                                PlanService $planService)
     {
-
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->planService = $planService;
     }
 
     public function create(array $data)
@@ -64,4 +70,24 @@ class CandidateService
             ];
         }
     }
+
+    public function number_of_candidates (  )
+    {
+        return count ($this->repository->all ()->toArray());
+    }
+
+    public function number_of_candidades_per_plans (  )
+    {
+        $plans= $this->planService->plans_ids ();
+        foreach ($plans as $item)
+        {
+            $x = $item->id;
+        }
+
+        $range_is = range (1, $x);
+
+        return count ($this->repository->findWhereIn ('plan_id', [$range_is]));
+    }
+
+
 }

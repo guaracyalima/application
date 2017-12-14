@@ -158,6 +158,7 @@ Route::group(['middleware' => ['cors']], function () {
 
     Route::group(['prefix' => 'report'], function () {
         Route::get('', 'ReportController@index');
+        Route::get('numeric', 'ReportsController@numeric_report');
     });
 
   //  });

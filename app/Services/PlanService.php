@@ -16,6 +16,7 @@ use App\Validators\CandidateValidator;
 use App\Validators\PlanValidator;
 use App\Validators\VoterValidator;
 use Dotenv\Exception\ValidationException;
+use Illuminate\Support\Facades\DB;
 
 class PlanService
 {
@@ -67,5 +68,12 @@ class PlanService
                 'message' => $exception->getMessage()
             ];
         }
+    }
+
+    public function plans_ids (  )
+    {
+        ///$pla = DB::table('plans')->select('id')->get()->toArray();
+
+        return $this->repository->all ();
     }
 }

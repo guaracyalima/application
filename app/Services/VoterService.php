@@ -34,6 +34,11 @@ class VoterService
         $this->validator = $validator;
     }
 
+    public function all (  )
+    {
+        return $this->repository->all ();
+    }
+
     public function create(array $data)
     {
         try
@@ -65,5 +70,20 @@ class VoterService
                 'message' => $exception->getMessage()
             ];
         }
+    }
+
+    public function voters_with_email (  )
+    {
+        return $this->repository->findWhereNotIn ('email', [' '])->toArray();
+    }
+
+    public function voters_female (  )
+    {
+        return $this->repository->findByField ('genre', 'female');
+    }
+
+    public function voters_man (  )
+    {
+        return $this->repository->findByField ('genre', 'H');
     }
 }

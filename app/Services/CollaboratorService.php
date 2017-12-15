@@ -33,6 +33,11 @@ class CollaboratorService
         $this->validator = $validator;
     }
 
+    public function all (  )
+    {
+        return $this->repository->all ();
+    }
+
     public function create(array $data)
     {
         try

@@ -28,14 +28,20 @@ class CandidateService
      * @var PlanService
      */
     private $planService;
+    /**
+     * @var CollaboratorService
+     */
+    private $collaboratorService;
 
     public function __construct(CandidateRepository $repository,
                                 CandidateValidator $validator,
-                                PlanService $planService)
+                                PlanService $planService,
+                                CollaboratorService $collaboratorService)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->planService = $planService;
+        $this->collaboratorService = $collaboratorService;
     }
 
     public function create(array $data)
@@ -87,6 +93,13 @@ class CandidateService
         $range_is = range (1, $x);
 
         return count ($this->repository->findWhereIn ('plan_id', [$range_is]));
+    }
+
+    public function supporters (  )
+    {
+        return count ($this->collaboratorService->all ()->toArray());
+
+
     }
 
 

@@ -48,8 +48,8 @@ class CitiesController extends Controller
      */
     public function index()
     {
-        $city = $this->repository->paginate(5);
-        return view('admin.teritories.cities.main', ['cities' => $city]);
+        $city = $this->repository->with (['state'])->all();
+        return response ()->json($city);
     }
 
     public function create()

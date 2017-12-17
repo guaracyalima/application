@@ -49,7 +49,7 @@ class StatesController extends Controller
      */
     public function index()
     {
-        $state = $this->repository->all();
+        $state = $this->repository->with (['region'])->all();
         return response()->json($state);
 
         //return view('admin.teritories.states.main', ['states' => $state]);

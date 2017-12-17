@@ -41,7 +41,7 @@ class EducateducationsController extends Controller
      */
     public function index()
     {
-        $education = $this->repository->paginate(5);
+        $education = $this->repository->all();
 
         return response()->json($education);
     }

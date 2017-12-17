@@ -41,8 +41,8 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        $region = $this->repository->paginate(5);
-        return view('admin.teritories.regions.main', ['regions' => $region]);
+        $data = $this->repository->all();
+        return response()->json($data);
     }
 
     public function store(Request $request)

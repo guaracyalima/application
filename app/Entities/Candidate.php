@@ -49,4 +49,24 @@ class Candidate extends Model implements Transformable
         return $this->belongsTo(User::class);
     }
 
+    public function collaborator (  )
+    {
+        return $this->hasMany (Collaborator::class);
+    }
+
+    public function broken (  )
+    {
+        return $this->hasOne (Broken::class, 'broken_id');
+    }
+
+    public function education (  )
+    {
+        return $this->belongsTo (Educations::class);
+    }
+
+    public function occupation (  )
+    {
+        return $this->belongsTo (Occupation::class);
+    }
+
 }

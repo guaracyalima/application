@@ -15,4 +15,9 @@ class Broken extends Model implements Transformable
         'description'
     ];
 
+    public function candidate (  )
+    {
+        return $this->belongsTo (Candidate::class, 'broken_id');
+    }
+
 }

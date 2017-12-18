@@ -36,7 +36,7 @@ Route::group(['middleware' => ['cors']], function () {
         Route::group(['prefix' => 'users'], function () {
             Route::get('', 'UsersController@index');
             Route::post('', 'UsersController@store');
-            Route::get('/{id}', 'UsersController@show');
+            Route::get('me/{id}', 'UsersController@show');
             Route::put('/{id}', 'UsersController@update');
             Route::delete('/{id}', 'UsersController@destroy');
         });

@@ -7,6 +7,7 @@ use App\Http\Requests\CandidateUpdateRequest;
 use App\Repositories\CandidateRepository;
 use App\Repositories\UserRepository;
 use App\Services\CandidateService;
+use App\Services\CollaboratorService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -30,12 +31,24 @@ class UsersController extends Controller
      * @var UserService
      */
     private $service;
+    /**
+     * @var CollaboratorService
+     */
+    private $collaboratorService;
+    /**
+     * @var CandidateService
+     */
+    private $candidateService;
 
     public function __construct(UserRepository $repository,
-                                UserService $service)
+                                UserService $service,
+                                CollaboratorService $collaboratorService,
+                                CandidateService $candidateService)
     {
         $this->repository = $repository;
         $this->service = $service;
+        $this->collaboratorService = $collaboratorService;
+        $this->candidateService = $candidateService;
     }
 
 
@@ -103,8 +116,26 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = $this->repository->find($id);
-        return response()->json($user);
+        $user = $this->repository->find($id)->toArray();
+        switch ($user['type'])
+        {
+            case 'comon':
+                return $user;
+                break;
+            case 'root':
+                return $user;
+                break;
+            case 'candidate':
+                return $this->candidateService->me ($user['id']);
+                break;
+            case 'collaborator':
+                return response ()->json($this->collaboratorService->me ($user['id']));
+                break;
+            default:
+                return $user;
+        };
+
+        //return response()->json($user);
 
     }
 

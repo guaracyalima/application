@@ -47,7 +47,21 @@ class Collaborator extends Model implements Transformable
 
     public function user()
     {
-
         return $this->belongsTo(User::class);
+    }
+
+    public function candidate (  )
+    {
+        return $this->belongsTo (Candidate::class);
+    }
+
+    public function education (  )
+    {
+        return $this->belongsTo (Educations::class);
+    }
+
+    public function occupation (  )
+    {
+        return $this->belongsTo (Occupation::class);
     }
 }

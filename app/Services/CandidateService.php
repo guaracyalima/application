@@ -98,8 +98,13 @@ class CandidateService
     public function supporters (  )
     {
         return count ($this->collaboratorService->all ()->toArray());
+    }
 
-
+    public function me ( $id )
+    {
+        return $this->repository
+            ->with (['user', 'collaborator', 'education', 'occupation', 'plan'])
+            ->findByField ('user_id', $id)->toArray();
     }
 
 

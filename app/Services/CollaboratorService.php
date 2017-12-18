@@ -70,4 +70,9 @@ class CollaboratorService
             ];
         }
     }
+
+    public function me ( $id )
+    {
+        return $this->repository->with (['user', 'candidate', 'education', 'occupation'])->findByField ('user_id', $id)->toArray();
+    }
 }

@@ -21,14 +21,20 @@ class ReportService
      * @var VoterService
      */
     private $voterService;
+    /**
+     * @var PlanService
+     */
+    private $planService;
 
     public function __construct ( CandidateService $candidateService,
                                   CollaboratorService $collaboratorService,
-                                  VoterService $voterService )
+                                  VoterService $voterService,
+                                  PlanService $planService)
     {
         $this->candidateService = $candidateService;
         $this->collaboratorService = $collaboratorService;
         $this->voterService = $voterService;
+        $this->planService = $planService;
     }
 
     public function number_of_voters (  )
@@ -49,5 +55,10 @@ class ReportService
     public function voter_man (  )
     {
         return count ($this->voterService->voters_man ());
+    }
+
+    public function furuncu (  )
+    {
+        return $this->planService->plans_ids ()->toArray();
     }
 }

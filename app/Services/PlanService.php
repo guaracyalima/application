@@ -74,6 +74,6 @@ class PlanService
     {
         ///$pla = DB::table('plans')->select('id')->get()->toArray();
 
-        return $this->repository->all ();
+        return $this->repository->with (['candidate'])->all ();
     }
 }

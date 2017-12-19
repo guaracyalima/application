@@ -34,8 +34,11 @@ class ReportsController extends Controller
             'supporters' => $this->candidateService->supporters (),
             'number_off_voters' => $this->service->number_of_voters (),
             'voters_with_mail' => $this->service->voters_with_mail (),
+            'percent_voters_with_mail' => ($this->service->number_of_voters () * ($this->service->voters_with_mail () / 100)) * 100,
             'voters_female' => $this->service->voters_female (),
+            'percent_voters_female' =>( $this->service->number_of_voters () * (  $this->service->voters_female () / 100)) * 100,
             'voters_man' => $this->service->voter_man (),
+            'percent_voters_man' => ( $this->service->number_of_voters () *  ( $this->service->voter_man () / 100)) * 100,
         ];
 
 
@@ -43,7 +46,7 @@ class ReportsController extends Controller
 
     public function supporters (  )
     {
-
+        return $this->service->furuncu ();
     }
 
 }

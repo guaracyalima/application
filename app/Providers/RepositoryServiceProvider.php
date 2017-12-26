@@ -50,6 +50,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\EducationsRepository::class, \App\Repositories\EducationsRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\RolerRepository::class, \App\Repositories\RolerRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\VoterMoreInformationRepository::class, \App\Repositories\VoterMoreInformationRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ResearchRepository::class, \App\Repositories\ResearchRepositoryEloquent::class);
         //:end-bindings:
     }
 }

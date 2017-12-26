@@ -19,6 +19,12 @@ class VoterMoreInformation extends Model implements Transformable
         'animal_prerence',
         'food_prerence',
         'drik_prerence',
+        'facebook',
+        'instagram',
+        'twitter',
+        'linkedin',
+        'whatsapp',
+        'yotube',
     ];
 
 }

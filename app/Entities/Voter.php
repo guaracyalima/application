@@ -16,6 +16,7 @@ class Voter extends Model implements Transformable
         'nickname',
         'genre',
         'birth',
+        'age',
         'cpf',
         'rg',
         'voter_title',

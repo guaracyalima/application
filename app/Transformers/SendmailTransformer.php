@@ -22,18 +22,20 @@ class SendmailTransformer extends TransformerAbstract
     {
         return [
             'id'         => (int) $model->id,
-            'destinatario' => $model->from,
-            'remetente' => $model->sender,
-            'para' => $model->to,
-            'corpo' => $model->content,
-            'conteudo' => $model->cc,
+            'destinate' => $model->from,
+            'sender' => $model->sender,
+            'to' => $model->to,
+            'body' => $model->content,
+            'content' => $model->cc,
             'bcc' => $model->bcc,
-            'copia' => $model->replyTo,
+            'copy' => $model->replyTo,
             'subject' => $model->subject,
-            'prioridade' => $model->priority,
-            'anexo' => $model->attach,
-            'anexos' => $model->attachData,
-            'usuario_remetente' => $model->user_id
+            'priority' => $model->priority,
+            'attach' => $model->attach,
+            'attachments' => $model->attachData,
+            'user_sender' => $model->user_id,
+            'created_at' => $model->created_at,
+            'user' => $model->user
         ];
     }
 }

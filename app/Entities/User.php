@@ -33,4 +33,14 @@ class User extends Authenticatable implements Transformable
     {
         return $this->hasOne(Collaborator::class);
     }
+
+    public function sendmail (  )
+    {
+        return $this->hasMany (Sendmail::class, 'user_id');
+    }
+
+    public function research (  )
+    {
+        return $this->hasMany (Research::class, 'created_by');
+    }
 }

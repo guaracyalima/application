@@ -61,4 +61,9 @@ class ReportService
     {
         return $this->planService->plans_ids ()->toArray();
     }
+
+    public function agetoage (  array $data)
+    {
+        return $this->voterService->agetoage($data);
+    }
 }

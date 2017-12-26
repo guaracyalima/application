@@ -44,6 +44,9 @@ class VoterService
         try
         {
             $this->validator->with($data)->passesOrFail();
+            $now_year_is = date('Y');
+            $birth_year = substr($data['birth'], -4);
+            $data['age'] = $now_year_is - $birth_year;
             return $this->repository->create($data);
         }
         catch (ValidationException $exception)
@@ -85,5 +88,10 @@ class VoterService
     public function voters_man (  )
     {
         return $this->repository->findByField ('genre', 'H');
+    }
+
+    public function agetoage ( array $data )
+    {
+        return $this->repository->findWhereIn ('age', [$data['agemin'], $data['agemax']]);
     }
 }

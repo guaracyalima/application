@@ -102,9 +102,7 @@ class VotersController extends Controller
     {
 
         $data =  $request->all();
-        $data['created_by'] = 1;#Auth::user()->getAuthIdentifier();
         $candidate = $this->service->create($data);
-
         $response = [
             'message' => 'Voter created.',
             'data' => $candidate->toArray(),

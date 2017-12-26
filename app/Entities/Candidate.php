@@ -69,4 +69,9 @@ class Candidate extends Model implements Transformable
         return $this->belongsTo (Occupation::class);
     }
 
+    public function research (  )
+    {
+        return $this->hasMany (Research::class, 'candidate_id');
+    }
+
 }

@@ -107,8 +107,9 @@ Route::group(['middleware' => ['cors']], function () {
         });
 
         Route::group(['prefix' => 'mailing'], function () {
-            Route::get('', 'SendmailsController@index');
+            Route::get('mymails/{id}', 'SendmailsController@index');
             Route::post('', 'SendmailsController@store');
+            Route::get('/{id}', 'SendmailsController@show');
             Route::get('/{id}', 'SendmailsController@show');
             Route::put('/{id}', 'SendmailsController@update');
             Route::delete('/{id}', 'SendmailsController@destroy');
@@ -160,11 +161,17 @@ Route::group(['middleware' => ['cors']], function () {
         Route::get('', 'ReportController@index');
         Route::get('numeric', 'ReportsController@numeric_report');
         Route::get('supporters', 'ReportsController@supporters');
+        Route::post('agetotage', 'ReportsController@agetoage');
     });
 
     Route::group(['prefix' => 'enrichiment_voter'], function () {
         Route::get('', 'VoterMoreInformationsController@index');
         Route::post('', 'ReportsController@store');
+    });
+
+    Route::group(['prefix' => 'research'], function () {
+        Route::get('', 'ResearchesController@index');
+        Route::post('', 'ResearchesController@store');
     });
 
   //  });

@@ -29,7 +29,6 @@ class SendmailsController extends Controller
 
     public function __construct(SendmailRepository $repository, SendmailService $service)
     {
-
         $this->repository = $repository;
         $this->service = $service;
     }
@@ -40,9 +39,9 @@ class SendmailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $sendmail = $this->repository->all();
+        $sendmail = $this->service->all ($id);
         return response()->json($sendmail);
     }
 
@@ -55,35 +54,7 @@ class SendmailsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $nada = '0';
-
-        $data['sender'] = $nada;
-        $data['from'] = $data['from'];
-        $data['to'] = $data['to'];
-        $data['content'] = $data['content'];
-        $data['cc'] = $nada;
-        $data['bcc'] = $nada;
-        $data['replyTo'] = $nada;
-        $data['subject'] = $nada;
-        $data['priority'] = $nada;
-        $data['attach'] = $nada;
-        $data['attachData'] = $nada;
-        $data['user_id'] = rand(1, 2);
-
-        $sendmail = $this->service->create($data);
-
-        $response = [
-            'message' => 'Candidate created.',
-            'data' => $sendmail
-        ];
-
-        Mail::send('mail.mail', [], function ($m) use ($data) {
-            $m->from($data['from'], 'Eleja-se');
-            $m->to($data['to'], 'guabirabaDev')->subject( $data['content']);
-        });
-
-        return response()->json($response);
+        return $this->service->create($request->all ());
     }
 
 

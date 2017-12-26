@@ -10,6 +10,24 @@ class Sendmail extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'from',
+        'sender',
+        'to',
+        'content',
+        'cc',
+        'bcc',
+        'replyTo',
+        'subject',
+        'priority',
+        'attach',
+        'attachData',
+        'user_id',
+    ];
+
+    public function user (  )
+    {
+        return $this->belongsTo (User::class, 'user_id');
+    }
 
 }

@@ -24,6 +24,12 @@ class CreateVoterMoreInformationsTable extends Migration
             $table->string ('animal_prerence');
             $table->string ('food_prerence');
             $table->string ('drik_prerence');
+            $table->string ('facebook');
+            $table->string ('instagram');
+            $table->string ('twitter');
+            $table->string ('linkedin');
+            $table->string ('whatsapp');
+            $table->string ('yotube');
             $table->timestamps();
 		});
 	}

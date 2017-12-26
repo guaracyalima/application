@@ -14,6 +14,7 @@ use App\Repositories\SendmailRepository;
 use App\Validators\CandidateValidator;
 use App\Validators\SendmailValidator;
 use Dotenv\Exception\ValidationException;
+use Illuminate\Support\Facades\Mail;
 
 class SendmailService
 {
@@ -34,12 +35,22 @@ class SendmailService
         $this->validator = $validator;
     }
 
+    public function all ($id)
+    {
+        return $this->repository->with (['user'])->findByField ('user_id', $id);
+    }
+
     public function create(array $data)
     {
         try
         {
             $this->validator->with($data)->passesOrFail();
             return $this->repository->create($data);
+//            Mail::send('mail.mail', [], function ($m) use ($data) {
+//                $m->from($data['from'], 'Eleja-se');
+//                $m->to($data['to'], 'guabirabaDev')->subject( $data['content']);
+//            });
+
         }
         catch (ValidationException $exception)
         {

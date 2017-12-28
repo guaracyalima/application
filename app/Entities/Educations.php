@@ -14,4 +14,9 @@ class Educations extends Model implements Transformable
         'description'
     ];
 
+    public function votter (  )
+    {
+        return $this->hasMany (Voter::class, 'education_id');
+    }
+
 }

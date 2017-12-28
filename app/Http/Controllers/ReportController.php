@@ -18,4 +18,5 @@ class ReportController extends  Controller
         $pdf = PDF::loadView('pdf.invoice', $data);
         return $pdf->download('invoice.pdf');
     }
+
 }

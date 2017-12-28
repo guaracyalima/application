@@ -174,6 +174,14 @@ Route::group(['middleware' => ['cors']], function () {
         Route::post('', 'ResearchesController@store');
     });
 
+    Route::group(['prefix' => 'advancedsearch'], function () {
+        Route::get('', 'ReportsController@advances_search_all');
+        Route::post('/agetoage', 'AdvancedSearch@agetoage');
+        Route::post('/byoccupation', 'AdvancedSearch@byoccupation');
+        Route::post('/byeducation', 'AdvancedSearch@byeducation');
+        Route::post('/multiples', 'AdvancedSearch@multiples');
+    });
+
   //  });
 
 

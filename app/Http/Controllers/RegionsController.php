@@ -4,15 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\RegionService;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\RegionCreateRequest;
 use App\Http\Requests\RegionUpdateRequest;
 use App\Repositories\RegionRepository;
-use App\Validators\RegionValidator;
-
 
 class RegionsController extends Controller
 {

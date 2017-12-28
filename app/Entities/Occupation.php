@@ -14,4 +14,9 @@ class Occupation extends Model implements Transformable
         'name'
     ];
 
+    public function votter (  )
+    {
+        return $this->hasMany (Voter::class, 'occupation_id');
+    }
+
 }

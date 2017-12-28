@@ -40,4 +40,14 @@ class Voter extends Model implements Transformable
         'created_by',
     ];
 
+    public function occupation (  )
+    {
+        return $this->belongsTo (Occupation::class, 'occupation_id');
+    }
+
+    public function education (  )
+    {
+        return $this->belongsTo (Educations::class, 'education_id');
+    }
+
 }

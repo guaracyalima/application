@@ -92,6 +92,27 @@ class VoterService
 
     public function agetoage ( array $data )
     {
-        return $this->repository->findWhereIn ('age', [$data['agemin'], $data['agemax']]);
+        return $this->repository->findWhereIn ('age', [$data['minage'], $data['maxage']]);
+    }
+
+    public function byoccupation ( array $array )
+    {
+        return $this->repository->with (['occupation'])->findByField ('occupation_id', $array['occupation_id']);
+    }
+
+    public function byeducation ( array $array )
+    {
+        return $this->repository->with (['education'])->findByField ('education_id', $array['education_id']);
+    }
+
+    public function multiples ( array $array )
+    {
+        return $this->repository
+            ->with (['education', 'occupation'])
+            ->findWhere ([
+                'age'           =>$array['age'],
+                'education_id'  =>$array['education_id'],
+                'occupation_id' =>$array['occupation_id'],
+            ]);
     }
 }

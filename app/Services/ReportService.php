@@ -25,16 +25,22 @@ class ReportService
      * @var PlanService
      */
     private $planService;
+    /**
+     * @var AdvancedSearch
+     */
+    private $advancedSearch;
 
     public function __construct ( CandidateService $candidateService,
                                   CollaboratorService $collaboratorService,
                                   VoterService $voterService,
-                                  PlanService $planService)
+                                  PlanService $planService,
+                                  AdvancedSearch $advancedSearch)
     {
         $this->candidateService = $candidateService;
         $this->collaboratorService = $collaboratorService;
         $this->voterService = $voterService;
         $this->planService = $planService;
+        $this->advancedSearch = $advancedSearch;
     }
 
     public function number_of_voters (  )
@@ -65,5 +71,10 @@ class ReportService
     public function agetoage (  array $data)
     {
         return $this->voterService->agetoage($data);
+    }
+
+    public function advancedSearchAll (  )
+    {
+        return $this->advancedSearch->all ();
     }
 }

@@ -49,4 +49,9 @@ class ReportsController extends Controller
         return $this->service->furuncu ();
     }
 
+    public function advances_search_all (  )
+    {
+        return $this->service->advancedSearchAll ();
+    }
+
 }

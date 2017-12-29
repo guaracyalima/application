@@ -13,7 +13,9 @@ use App\Repositories\CandidateRepository;
 use App\Repositories\VoterRepository;
 use App\Validators\CandidateValidator;
 use App\Validators\VoterValidator;
+use Carbon\Carbon;
 use Dotenv\Exception\ValidationException;
+use Illuminate\Support\Facades\DB;
 
 class VoterService
 {
@@ -114,5 +116,37 @@ class VoterService
                 'education_id'  =>$array['education_id'],
                 'occupation_id' =>$array['occupation_id'],
             ]);
+    }
+
+    public function created_in_last_day (  )
+    {
+        $date_now_is = Carbon::now ();
+        $satart_create = Carbon::parse ($date_now_is)->startOfDay ();
+        $end_create = Carbon::parse ($date_now_is)->endOfDay ();
+        return DB::table('voters')->whereBetween('created_at', [$satart_create, $end_create])->get()->toArray();
+    }
+
+    public function created_in_last_month (  )
+    {
+        $date_now_is = Carbon::now ();
+        $x = Carbon::parse ($date_now_is)->startOfMonth();
+        $y = Carbon::parse ($date_now_is)->endOfMonth();
+        return DB::table('voters')->whereBetween('created_at', [$x, $y])->get()->toArray();
+    }
+
+    public function created_in_last_year (  )
+    {
+        $date_now_is = Carbon::now ();
+        $new_year = Carbon::parse ($date_now_is)->startOfYear ();
+        $end_year = Carbon::parse ($date_now_is)->endOfYear ();
+        return DB::table('voters')->whereBetween('created_at', [$new_year, $end_year])->get()->toArray();
+    }
+
+    public function created_in_last_week (  )
+    {
+        $date_now_is = Carbon::now ();
+        $start_week = Carbon::parse ($date_now_is)->startOfWeek ();
+        $end_week = Carbon::parse ($date_now_is)->endOfWeek ();
+        return DB::table('voters')->whereBetween('created_at', [$start_week, $end_week])->get()->toArray();
     }
 }

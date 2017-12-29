@@ -77,4 +77,24 @@ class ReportService
     {
         return $this->advancedSearch->all ();
     }
+
+    public function voters_created_today (  )
+    {
+        return $this->voterService->created_in_last_day();
+    }
+
+    public function created_in_last_month (  )
+    {
+        return $this->voterService->created_in_last_month ();
+    }
+
+    public function created_in_last_year (  )
+    {
+        return $this->voterService->created_in_last_year ();
+    }
+
+    public function created_in_last_week (  )
+    {
+        return $this->voterService->created_in_last_week ();
+    }
 }

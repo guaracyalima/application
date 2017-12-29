@@ -43,4 +43,9 @@ class User extends Authenticatable implements Transformable
     {
         return $this->hasMany (Research::class, 'created_by');
     }
+
+    public function sms (  )
+    {
+        return $this->hasMany (Sms::class, 'user_id');
+    }
 }

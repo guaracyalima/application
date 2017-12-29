@@ -161,6 +161,9 @@ Route::group(['middleware' => ['cors']], function () {
         Route::get('', 'ReportController@index');
         Route::get('numeric', 'ReportsController@numeric_report');
         Route::get('supporters', 'ReportsController@supporters');
+        Route::get('voters_created_today', 'ReportsController@voters_created_today');
+        Route::get('created_in_last_month', 'ReportsController@created_in_last_month');
+        Route::get('created_in_last_week', 'ReportsController@created_in_last_week');
         Route::post('agetotage', 'ReportsController@agetoage');
     });
 

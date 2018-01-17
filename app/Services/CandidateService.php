@@ -103,9 +103,10 @@ class CandidateService
     public function me ( $id )
     {
         return $this->repository
-            ->with (['user', 'collaborator', 'education', 'occupation', 'plan'])
-            ->findByField ('user_id', $id)->toArray();
+//            ->with (['user', 'collaborator', 'education', 'occupation', 'plan'])
+            ->findByField ('user_id', $id);
     }
+
 
 
 }

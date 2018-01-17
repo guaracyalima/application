@@ -58,20 +58,20 @@ Route::group(['middleware' => ['cors']], function () {
         });
 
         Route::group(['prefix' => 'voters'], function () {
-            Route::get('', 'VotersController@index');
+            Route::get('/collaborator/{id}', 'VotersController@index');
             Route::post('', 'VotersController@store');
             Route::get('/{id}', 'VotersController@show');
             Route::put('/{id}', 'VotersController@update');
             Route::delete('/{id}', 'VotersController@destroy');
+            Route::get('mylastweek', 'VotersController@created_in_last_week');
         });
 
         Route::group(['prefix' => 'collaborators'], function () {
-            Route::get('', 'CollaboratorsController@index');
+            Route::get('/mycollaborator/{id}', 'CollaboratorsController@index');
             Route::post('', 'CollaboratorsController@store');
             Route::get('/{id}', 'CollaboratorsController@show');
             Route::put('/{id}', 'CollaboratorsController@update');
             Route::delete('/{id}', 'CollaboratorsController@destroy');
-            Route::get('/my/{id}', 'CollaboratorsController@my');
         });
 
         Route::group(['prefix' => 'teritories'], function () {

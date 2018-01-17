@@ -191,4 +191,9 @@ class VotersController extends Controller
 
 
     }
+
+    public function created_in_last_week (  )
+    {
+        return $this->service->created_in_last_week ();
+    }
 }

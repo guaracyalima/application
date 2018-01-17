@@ -87,13 +87,7 @@ class CandidatesController extends Controller
      */
     public function index()
     {
-        $candidates = $this->repository->all();
-        // $k = new AuthController;
-        // $k->getAuthenticatedUser();
-        // dd($k);
-        return response()->json($candidates);
-        //return view ('admin.peoples.candidates.main', ['candidates' => $candidates]);
-
+        return $this->repository->with (['occupation', 'education', 'plan', 'collaborator'])->all();
     }
 
     /**

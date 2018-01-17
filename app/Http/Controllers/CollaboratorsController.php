@@ -72,32 +72,11 @@ class CollaboratorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $collaborator = $this->repository->all();
-        return response()->json($collaborator);
-        //return view ('admin.peoples.colaborators.main', ['colaborator' => $collaborator]);
+       return $this->service->index($id);
     }
 
-    public function create (  )
-    {
-        $uf = $this->stateRepository->pluck('name', 'id');
-        $candidate = $this->candidateRepository->pluck('name', 'id');
-        $education = $this->educationsRepository->pluck('description', 'id');
-        $ocupation = $this->occupationRepository->pluck('name', 'id');
-        return view ('admin.peoples.colaborators.create', [
-            'uf' => $uf,
-            'candidate' => $candidate,
-            'educations' => $education,
-            'ocupations' => $ocupation]);
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  CollaboratorCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 

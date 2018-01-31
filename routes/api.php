@@ -201,6 +201,7 @@ Route::group(['middleware' => ['cors']], function () {
         });
     });
 
+    //all projects
 
     Route::group(['prefix' => 'projects'], function () {
         Route::get('', 'ProjectsController@index');
@@ -209,5 +210,7 @@ Route::group(['middleware' => ['cors']], function () {
         Route::put('/{id}', 'ProjectsController@update');
         Route::delete('/{id}', 'ProjectsController@destroy');
     });
+
+
 
 });

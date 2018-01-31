@@ -20,7 +20,7 @@ class CreateVotersTable extends Migration
             $table->string('nickname');
             $table->string('genre');
             $table->string('birth');
-            $table->string('age');
+            $table->string('age')->default(0);
             $table->string('cpf');
             $table->string('rg');
             $table->string('voter_title');

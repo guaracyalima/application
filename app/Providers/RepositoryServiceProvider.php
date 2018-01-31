@@ -53,6 +53,14 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\ResearchRepository::class, \App\Repositories\ResearchRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\SmsRepository::class, \App\Repositories\SmsRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\TeamRepository::class, \App\Repositories\TeamRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\CollaboratorCandidateRepository::class, \App\Repositories\CollaboratorCandidateRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\CoordinatorRepository::class, \App\Repositories\CoordinatorRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\BillingRepository::class, \App\Repositories\BillingRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ProjectRepository::class, \App\Repositories\ProjectRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\TaskRepository::class, \App\Repositories\TaskRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ProjectNoteRepository::class, \App\Repositories\ProjectNoteRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ProjectMemberRepository::class, \App\Repositories\ProjectMemberRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\ProjectFileRepository::class, \App\Repositories\ProjectFileRepositoryEloquent::class);
         //:end-bindings:
     }
 }

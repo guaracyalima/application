@@ -20,7 +20,9 @@ class CreateTeamsTable extends Migration
 
             $table->integer('collaborator_id')->unsigned();
             $table->foreign('collaborator_id')->references('id')->on('collaborators');
-            $table->string ('description');
+
+            $table->integer('coordinator_id')->unsigned();
+            $table->string ('description')->default('null');
             $table->string ('raking_position')->default('0');
             $table->timestamps();
 		});

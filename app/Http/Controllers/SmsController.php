@@ -11,7 +11,7 @@ use App\Http\Requests\SmsCreateRequest;
 use App\Http\Requests\SmsUpdateRequest;
 use App\Repositories\SmsRepository;
 use App\Validators\SmsValidator;
-
+use Twilio\Rest\Client;
 
 class SmsController extends Controller
 {
@@ -26,7 +26,8 @@ class SmsController extends Controller
      */
     protected $validator;
 
-    public function __construct(SmsRepository $repository, SmsValidator $validator)
+    public function __construct(SmsRepository $repository,
+                                SmsValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -68,6 +69,8 @@ class SmsController extends Controller
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $sm = $this->repository->create($request->all());
+
+
 
             $response = [
                 'message' => 'Sms created.',
@@ -194,5 +197,22 @@ class SmsController extends Controller
         }
 
         return redirect()->back()->with('message', 'Sms deleted.');
+    }
+
+    public function new_message_test (  )
+    {
+        $sid = "AC8d77cb1425df608e29ca46a1619386e3"; // Your Account SID from www.twilio.com/console
+        $token = "4e9b74993bc6e8e1eb4db25eda4950b7"; // Your Auth Token from www.twilio.com/console
+
+        $client = new Client($sid, $token);
+        $message = $client->messages->create(
+            '+15557778888', // Text this number
+            array(
+                'from' => '+55 61 9629-1384', // From a valid Twilio number
+                'body' => 'Hello from Twilio!'
+            )
+        );
+
+        print $message->sid;
     }
 }

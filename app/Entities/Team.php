@@ -17,4 +17,9 @@ class Team extends Model implements Transformable
         'raking_position',
     ];
 
+    public function coordinator (  )
+    {
+        return $this->belongsTo (Coordinator::class, 'coordinator_id');
+    }
+
 }

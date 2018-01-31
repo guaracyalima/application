@@ -49,4 +49,8 @@ class CollaboratorRepositoryEloquent extends BaseRepository implements Collabora
 //    {
 //        return CollaboratorPresenter::class;
 //    }
+//    public function lists ( $id, $name = ['*'] )
+//    {
+//        return $this->model->get(['id', 'candidate_id']);
+//    }
 }

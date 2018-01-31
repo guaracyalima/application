@@ -9,7 +9,9 @@
 namespace App\Services;
 
 use App\Repositories\CandidateRepository;
+use App\Repositories\CollaboratorCandidateRepository;
 use App\Repositories\CollaboratorRepository;
+use App\Repositories\CoordinatorRepository;
 use App\Validators\CollaboratorValidator;
 use Dotenv\Exception\ValidationException;
 
@@ -30,13 +32,26 @@ class CollaboratorService
      * @var CandidateRepository
      */
     private $candidateRepository;
+    /**
+     * @var CollaboratorCandidateRepository
+     */
+    private $collaboratorCandidateRepository;
+    /**
+     * @var CoordinatorRepository
+     */
+    private $coordinatorRepository;
 
     public function __construct(CollaboratorRepository $repository,
-                                CollaboratorValidator $validator, CandidateRepository $candidateRepository)
+                                CollaboratorValidator $validator,
+                                CandidateRepository $candidateRepository,
+                                CollaboratorCandidateRepository $collaboratorCandidateRepository,
+                                CoordinatorRepository $coordinatorRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->candidateRepository = $candidateRepository;
+        $this->collaboratorCandidateRepository = $collaboratorCandidateRepository;
+        $this->coordinatorRepository = $coordinatorRepository;
     }
 
     public function index ( $id )
@@ -59,7 +74,8 @@ class CollaboratorService
         try
         {
             $this->validator->with($data)->passesOrFail();
-            return $this->repository->create($data);
+            $x = $this->repository->create($data);
+            return $x['id'];
         }
         catch (ValidationException $exception)
         {

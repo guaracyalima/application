@@ -64,4 +64,19 @@ class Collaborator extends Model implements Transformable
     {
         return $this->belongsTo (Occupation::class);
     }
+
+    public function candidatecollabortor (  )
+    {
+        return $this->belongsTo (Collaborator::class, 'collaborator_id');
+    }
+
+    public function coordinator (  )
+    {
+        return $this->hasOne (Coordinator::class, 'collaborator_id');
+    }
+
+    public function member (  )
+    {
+        return $this->hasMany (ProjectMember::class, 'collaborator_id');
+    }
 }

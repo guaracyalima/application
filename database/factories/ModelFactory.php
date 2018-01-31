@@ -63,7 +63,7 @@ $factory->define(App\Entities\Candidate::class, function (Faker\Generator $faker
 
 
 $factory->define(App\Entities\Voter::class, function (Faker\Generator $faker) {
-    $user = \App\Entities\User::first()->attributesToArray();
+//    $user = \App\Entities\User::first()->attributesToArray();
     return [
         'name' => $faker->firstName,
         'last_name' => $faker->lastName,
@@ -90,7 +90,7 @@ $factory->define(App\Entities\Voter::class, function (Faker\Generator $faker) {
         'telephone' =>  999999999,
         'email' => $faker->safeEmail,
         'whatsapp'  =>  999999999,
-        'created_by' => $user['name']
+        'created_by' => rand(1, 4)
     ];
 });
 
@@ -193,5 +193,17 @@ $factory->define(App\Entities\Broken::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
         'description' => $faker->word
+    ];
+});
+
+$factory->define(App\Entities\Project::class, function (Faker\Generator $faker) {
+
+    return [
+        'owner_id'  => rand(1, 5),
+        'name' => $faker->name,
+        'description' => $faker->sentence,
+        'progress' => rand(1, 10),
+        'status' => rand(1, 10),
+        'due_date' => $faker->dateTime,
     ];
 });

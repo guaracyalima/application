@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "df7319dc69ae307c6d03b24eeca55be6",
+    "content-hash": "5f1e9e8e7fb6dd201fe10e57c4df1205",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -313,6 +313,37 @@
                 "swagger"
             ],
             "time": "2017-08-31T05:43:35+00:00"
+        },
+        {
+            "name": "developercielo/api-3.0-php",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DeveloperCielo/API-3.0-PHP.git",
+                "reference": "40dd1a00e32d1709db8ba0fd385a744d28b1ab3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DeveloperCielo/API-3.0-PHP/zipball/40dd1a00e32d1709db8ba0fd385a744d28b1ab3f",
+                "reference": "40dd1a00e32d1709db8ba0fd385a744d28b1ab3f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cielo": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Integração com a API 3.0 da Cielo",
+            "homepage": "https://github.com/DeveloperCielo/API-3.0-PHP",
+            "time": "2018-01-11T18:03:53+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3488,6 +3519,52 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2016-09-20T12:50:39+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "5.16.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "4d4d146365f584f2204e0de28e620fd717889834"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/4d4d146365f584f2204e0de28e620fd717889834",
+                "reference": "4d4d146365f584f2204e0de28e620fd717889834",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "apigen/apigen": "^4.1",
+                "phpunit/phpunit": "4.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "http://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2018-01-20T02:33:56+00:00"
         },
         {
             "name": "tymon/jwt-auth",

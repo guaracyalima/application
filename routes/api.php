@@ -58,7 +58,8 @@ Route::group(['middleware' => ['cors']], function () {
         });
 
         Route::group(['prefix' => 'voters'], function () {
-            Route::get('/collaborator/{id}', 'VotersController@index');
+            Route::get('/myvorets/{id}', 'VotersController@index');
+            Route::get('/collaborator/{id}', 'VotersController@myvoters');
             Route::post('', 'VotersController@store');
             Route::get('/{id}', 'VotersController@show');
             Route::put('/{id}', 'VotersController@update');
@@ -70,6 +71,7 @@ Route::group(['middleware' => ['cors']], function () {
             Route::get('/mycollaborator/{id}', 'CollaboratorsController@index');
             Route::post('', 'CollaboratorsController@store');
             Route::get('/{id}', 'CollaboratorsController@show');
+            Route::get('/coordinator/{id}', 'CollaboratorsController@is_coordinator');
             Route::put('/{id}', 'CollaboratorsController@update');
             Route::delete('/{id}', 'CollaboratorsController@destroy');
         });
@@ -177,6 +179,11 @@ Route::group(['middleware' => ['cors']], function () {
         Route::post('', 'ResearchesController@store');
     });
 
+    Route::group(['prefix' => 'sms'], function () {
+        Route::get('', 'SmsController@index');
+        Route::post('', 'SmsController@new_message_test');
+    });
+
     Route::group(['prefix' => 'advancedsearch'], function () {
         Route::get('', 'ReportsController@advances_search_all');
         Route::post('/agetoage', 'AdvancedSearch@agetoage');
@@ -187,5 +194,20 @@ Route::group(['middleware' => ['cors']], function () {
 
   //  });
 
+    Route::get('send_test_email', function(){
+        Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
+        {
+            $message->to('galima@brasal.com');
+        });
+    });
+
+
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('', 'ProjectsController@index');
+        Route::post('', 'ProjectsController@store');
+        Route::get('/{id}', 'ProjectsController@show');
+        Route::put('/{id}', 'ProjectsController@update');
+        Route::delete('/{id}', 'ProjectsController@destroy');
+    });
 
 });

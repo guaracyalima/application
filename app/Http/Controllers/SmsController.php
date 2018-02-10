@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Nexmo\Laravel\Facade\Nexmo;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\SmsCreateRequest;
@@ -15,43 +15,38 @@ use Twilio\Rest\Client;
 
 class SmsController extends Controller
 {
-
     /**
      * @var SmsRepository
      */
     protected $repository;
-
     /**
      * @var SmsValidator
      */
     protected $validator;
 
-    public function __construct(SmsRepository $repository,
-                                SmsValidator $validator)
+    public function __construct ( SmsRepository $repository ,
+                                  SmsValidator $validator )
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
-
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index ()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $sms = $this->repository->all();
+        $this->repository->pushCriteria ( app ( 'Prettus\Repository\Criteria\RequestCriteria' ) );
+        $sms = $this->repository->all ();
+        if ( request ()->wantsJson () ) {
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $sms,
-            ]);
+            return response ()->json ( [
+                'data' => $sms ,
+            ] );
         }
-
-        return view('sms.index', compact('sms'));
+        return view ( 'sms.index' , compact ( 'sms' ) );
     }
 
     /**
@@ -61,40 +56,32 @@ class SmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(SmsCreateRequest $request)
+    public function store ( SmsCreateRequest $request )
     {
 
         try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $sm = $this->repository->create($request->all());
-
-
-
+            $this->validator->with ( $request->all () )->passesOrFail ( ValidatorInterface::RULE_CREATE );
+            $sm = $this->repository->create ( $request->all () );
             $response = [
-                'message' => 'Sms created.',
-                'data'    => $sm->toArray(),
+                'message' => 'Sms created.' ,
+                'data' => $sm->toArray () ,
             ];
+            if ( $request->wantsJson () ) {
 
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
+                return response ()->json ( $response );
             }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
+            return redirect ()->back ()->with ( 'message' , $response[ 'message' ] );
+        } catch ( ValidatorException $e ) {
+            if ( $request->wantsJson () ) {
+                return response ()->json ( [
+                    'error' => true ,
+                    'message' => $e->getMessageBag ()
+                ] );
             }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect ()->back ()->withErrors ( $e->getMessageBag () )->withInput ();
         }
     }
-
 
     /**
      * Display the specified resource.
@@ -103,20 +90,17 @@ class SmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show ( $id )
     {
-        $sm = $this->repository->find($id);
+        $sm = $this->repository->find ( $id );
+        if ( request ()->wantsJson () ) {
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $sm,
-            ]);
+            return response ()->json ( [
+                'data' => $sm ,
+            ] );
         }
-
-        return view('sms.show', compact('sm'));
+        return view ( 'sms.show' , compact ( 'sm' ) );
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -125,57 +109,49 @@ class SmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit ( $id )
     {
 
-        $sm = $this->repository->find($id);
-
-        return view('sms.edit', compact('sm'));
+        $sm = $this->repository->find ( $id );
+        return view ( 'sms.edit' , compact ( 'sm' ) );
     }
-
 
     /**
      * Update the specified resource in storage.
      *
      * @param  SmsUpdateRequest $request
-     * @param  string            $id
+     * @param  string $id
      *
      * @return Response
      */
-    public function update(SmsUpdateRequest $request, $id)
+    public function update ( SmsUpdateRequest $request , $id )
     {
 
         try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $sm = $this->repository->update($request->all(), $id);
-
+            $this->validator->with ( $request->all () )->passesOrFail ( ValidatorInterface::RULE_UPDATE );
+            $sm = $this->repository->update ( $request->all () , $id );
             $response = [
-                'message' => 'Sms updated.',
-                'data'    => $sm->toArray(),
+                'message' => 'Sms updated.' ,
+                'data' => $sm->toArray () ,
             ];
+            if ( $request->wantsJson () ) {
 
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
+                return response ()->json ( $response );
             }
+            return redirect ()->back ()->with ( 'message' , $response[ 'message' ] );
+        } catch ( ValidatorException $e ) {
 
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+            if ( $request->wantsJson () ) {
 
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
+                return response ()->json ( [
+                    'error' => true ,
+                    'message' => $e->getMessageBag ()
+                ] );
             }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect ()->back ()->withErrors ( $e->getMessageBag () )->withInput ();
         }
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -184,35 +160,27 @@ class SmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy ( $id )
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->repository->delete ( $id );
+        if ( request ()->wantsJson () ) {
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Sms deleted.',
-                'deleted' => $deleted,
-            ]);
+            return response ()->json ( [
+                'message' => 'Sms deleted.' ,
+                'deleted' => $deleted ,
+            ] );
         }
-
-        return redirect()->back()->with('message', 'Sms deleted.');
+        return redirect ()->back ()->with ( 'message' , 'Sms deleted.' );
     }
 
-    public function new_message_test (  )
+    public function new_message_test ( Request $request )
     {
-        $sid = "AC8d77cb1425df608e29ca46a1619386e3"; // Your Account SID from www.twilio.com/console
-        $token = "4e9b74993bc6e8e1eb4db25eda4950b7"; // Your Auth Token from www.twilio.com/console
+        $data = $request->all ();
+        Nexmo::message ()->send ( [
+            'to' => '5584999430332' ,
+            'from' => '5561996291384' ,
+            'text' => $data[ 'message' ]
+        ] );
 
-        $client = new Client($sid, $token);
-        $message = $client->messages->create(
-            '+15557778888', // Text this number
-            array(
-                'from' => '+55 61 9629-1384', // From a valid Twilio number
-                'body' => 'Hello from Twilio!'
-            )
-        );
-
-        print $message->sid;
     }
 }

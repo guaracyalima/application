@@ -90,7 +90,8 @@ $factory->define(App\Entities\Voter::class, function (Faker\Generator $faker) {
         'telephone' =>  999999999,
         'email' => $faker->safeEmail,
         'whatsapp'  =>  999999999,
-        'created_by' => rand(1, 4)
+        'created_by' => rand(1, 4),
+        'candidate_id' => rand(3, 4),
     ];
 });
 
@@ -110,8 +111,8 @@ $factory->define(App\Entities\Plan::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Entities\Collaborator::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => rand(1, 2),
-        'candidate_id' => rand(1, 10),
+        'user_id' => rand(5, 6),
+        'candidate_id' => rand(3, 4),
         'name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'nickname' => $faker->word,

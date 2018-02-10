@@ -84,4 +84,9 @@ class Candidate extends Model implements Transformable
         return $this->hasMany (Project::class, 'owner_id');
     }
 
+    public function voter (  )
+    {
+        return $this->hasMany (Voter::class, 'candidate_id');
+    }
+
 }

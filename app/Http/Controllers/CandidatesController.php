@@ -87,7 +87,7 @@ class CandidatesController extends Controller
      */
     public function index()
     {
-        return $this->repository->with (['occupation', 'education', 'plan', 'collaborator'])->all();
+        return $this->repository->with (['occupation', 'education', 'plan', 'collaborator', 'voter'])->all();
     }
 
     /**

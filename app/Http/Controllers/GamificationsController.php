@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\ProjectCreateRequest;
-use App\Http\Requests\ProjectUpdateRequest;
-use App\Repositories\ProjectRepository;
-use App\Validators\ProjectValidator;
+use App\Http\Requests\GamificationCreateRequest;
+use App\Http\Requests\GamificationUpdateRequest;
+use App\Repositories\GamificationRepository;
+use App\Validators\GamificationValidator;
 
 
-class ProjectsController extends Controller
+class GamificationsController extends Controller
 {
 
     /**
-     * @var ProjectRepository
+     * @var GamificationRepository
      */
     protected $repository;
 
     /**
-     * @var ProjectValidator
+     * @var GamificationValidator
      */
     protected $validator;
 
-    public function __construct(ProjectRepository $repository, ProjectValidator $validator)
+    public function __construct(GamificationRepository $repository, GamificationValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
@@ -40,28 +40,38 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return  $this->repository->all();
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $gamifications = $this->repository->all();
+
+        if (request()->wantsJson()) {
+
+            return response()->json([
+                'data' => $gamifications,
+            ]);
+        }
+
+        return view('gamifications.index', compact('gamifications'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ProjectCreateRequest $request
+     * @param  GamificationCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ProjectCreateRequest $request)
+    public function store(GamificationCreateRequest $request)
     {
 
         try {
 
-            $this->validator->with($request->all())->passesOrFail();
+            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $project = $this->repository->create($request->all());
+            $gamification = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Project created.',
-                'data'    => $project->toArray(),
+                'message' => 'Gamification created.',
+                'data'    => $gamification->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -92,16 +102,16 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-        $project = $this->repository->find($id);
+        $gamification = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $project,
+                'data' => $gamification,
             ]);
         }
 
-        return view('projects.show', compact('project'));
+        return view('gamifications.show', compact('gamification'));
     }
 
 
@@ -115,32 +125,32 @@ class ProjectsController extends Controller
     public function edit($id)
     {
 
-        $project = $this->repository->find($id);
+        $gamification = $this->repository->find($id);
 
-        return view('projects.edit', compact('project'));
+        return view('gamifications.edit', compact('gamification'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ProjectUpdateRequest $request
+     * @param  GamificationUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(ProjectUpdateRequest $request, $id)
+    public function update(GamificationUpdateRequest $request, $id)
     {
 
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $project = $this->repository->update($request->all(), $id);
+            $gamification = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Project updated.',
-                'data'    => $project->toArray(),
+                'message' => 'Gamification updated.',
+                'data'    => $gamification->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -178,11 +188,11 @@ class ProjectsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Project deleted.',
+                'message' => 'Gamification deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Project deleted.');
+        return redirect()->back()->with('message', 'Gamification deleted.');
     }
 }

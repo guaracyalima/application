@@ -22,4 +22,9 @@ class Team extends Model implements Transformable
         return $this->belongsTo (Coordinator::class, 'coordinator_id');
     }
 
+    public function gamification (  )
+    {
+        return $this->hasMany (Gamification::class, 'team_id');
+    }
+
 }

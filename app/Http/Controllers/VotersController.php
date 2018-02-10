@@ -59,7 +59,7 @@ class VotersController extends Controller
      */
     public function index ($id)
     {
-        return $this->service->voterstocandidate ($id);
+        return $this->service->index ($id);
 
         //return view ('admin.peoples.voters.main', ['voters' => $voters]);
     }

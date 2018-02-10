@@ -61,6 +61,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\ProjectNoteRepository::class, \App\Repositories\ProjectNoteRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\ProjectMemberRepository::class, \App\Repositories\ProjectMemberRepositoryEloquent::class);
         $this->app->bind(\App\Repositories\ProjectFileRepository::class, \App\Repositories\ProjectFileRepositoryEloquent::class);
+        $this->app->bind(\App\Repositories\GamificationRepository::class, \App\Repositories\GamificationRepositoryEloquent::class);
         //:end-bindings:
     }
 }

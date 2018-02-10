@@ -37,21 +37,33 @@ class VoterService
      * @var CollaboratorCandidateRepository
      */
     private $collaboratorCandidateRepository;
+    /**
+     * @var GamificationsService
+     */
+    private $gamificationsService;
 
     public function __construct ( VoterRepository $repository ,
                                   VoterValidator $validator ,
-                                  CollaboratorCandidateRepository $collaboratorCandidateRepository)
+                                  CollaboratorCandidateRepository $collaboratorCandidateRepository,
+                                  GamificationsService $gamificationsService)
     {
-
         $this->repository = $repository;
         $this->validator = $validator;
         $this->collaboratorCandidateRepository = $collaboratorCandidateRepository;
+        $this->gamificationsService = $gamificationsService;
     }
 
     public function all ()
     {
         return $this->repository->all ();
     }
+
+    public function index ($id)
+    {
+        return $this->repository->with (['candidate'])->findByField ('candidate_id', $id);
+    }
+
+
 
     public function create ( array $data )
     {
@@ -60,6 +72,9 @@ class VoterService
             $now_year_is = date ( 'Y' );
             $birth_year = substr ( $data[ 'birth' ] , - 4 );
             $data[ 'age' ] = $now_year_is - $birth_year;
+            $gm = array ();
+            $gm['collaborator_id'] = $data['created_by'];
+            $this->gamificationsService->create ($gm);
             return $this->repository->create ( $data );
         } catch ( ValidationException $exception ) {
             return [
@@ -178,5 +193,15 @@ class VoterService
 //            $this->repository->findByField ('created_by', $id)->toArray(),
 //            'meus' => $meus
 //        ];
+    }
+
+    public function voter_of_birth_is_in_the_month ()
+    {
+        $date_now_is = Carbon::now ();
+        $birth_start = Carbon::parse ( $date_now_is )->startOfMonth ();
+        $birth_end = Carbon::parse ( $date_now_is )->endOfMonth ();
+        $start = $birth_start->day . '/'.$birth_start->month.'/'.$birth_start->year;
+        $end = $birth_end->day . '/'.$birth_end->month.'/'.$birth_end->year;
+        return DB::table ( 'voters' )->whereBetween ( 'birth' , [ $start , $end ] )->get ()->toArray ();
     }
 }

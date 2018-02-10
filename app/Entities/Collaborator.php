@@ -79,4 +79,9 @@ class Collaborator extends Model implements Transformable
     {
         return $this->hasMany (ProjectMember::class, 'collaborator_id');
     }
+
+    public function score (  )
+    {
+        return $this->hasMany (Gamification::class, 'collaborator_id');
+    }
 }

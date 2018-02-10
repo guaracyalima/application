@@ -29,18 +29,24 @@ class ReportService
      * @var AdvancedSearch
      */
     private $advancedSearch;
+    /**
+     * @var ResearchService
+     */
+    private $researchService;
 
     public function __construct ( CandidateService $candidateService,
                                   CollaboratorService $collaboratorService,
                                   VoterService $voterService,
                                   PlanService $planService,
-                                  AdvancedSearch $advancedSearch)
+                                  AdvancedSearch $advancedSearch,
+                                  ResearchService $researchService)
     {
         $this->candidateService = $candidateService;
         $this->collaboratorService = $collaboratorService;
         $this->voterService = $voterService;
         $this->planService = $planService;
         $this->advancedSearch = $advancedSearch;
+        $this->researchService = $researchService;
     }
 
     public function number_of_voters (  )
@@ -96,5 +102,20 @@ class ReportService
     public function created_in_last_week (  )
     {
         return $this->voterService->created_in_last_week ();
+    }
+
+    public function voter_of_birth_is_in_the_month (  )
+    {
+        return $this->voterService->voter_of_birth_is_in_the_month();
+    }
+
+    public function supporters ( $id )
+    {
+        return $this->researchService->supports_by_candidate ($id);
+    }
+
+    public function myvoretes ( $id )
+    {
+        return $this->voterService->index ($id);
     }
 }

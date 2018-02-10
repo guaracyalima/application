@@ -42,6 +42,8 @@ class CreateVotersTable extends Migration
             $table->string('email');
             $table->string('whatsapp');
             $table->string('created_by');
+            $table->integer('candidate_id')->unsigned();
+            $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->timestamps();
 		});
 	}

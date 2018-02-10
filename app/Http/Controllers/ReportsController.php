@@ -82,4 +82,19 @@ class ReportsController extends Controller
         return $this->service->created_in_last_week ();
     }
 
+    public function voter_of_birth_is_in_the_month (  )
+    {
+        return $this->service->voter_of_birth_is_in_the_month ();
+    }
+
+    public function mysupporters ( $id )
+    {
+        return $this->service->supporters ($id);
+    }
+
+    public function myvoters ( $id )
+    {
+        return $this->service->myvoretes ($id);
+    }
+
 }

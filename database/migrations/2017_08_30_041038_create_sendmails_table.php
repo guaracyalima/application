@@ -15,17 +15,17 @@ class CreateSendmailsTable extends Migration
 	{
 		Schema::create('sendmails', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('from');
-            $table->string('sender');
-            $table->string('to');
-            $table->longText('content');
-            $table->longText('cc');
-            $table->longText('bcc');
-            $table->string('replyTo');
-            $table->string('subject');
-            $table->string('priority');
-            $table->string('attach');
-            $table->string('attachData');
+            $table->string('from')->nullable();
+            $table->string('sender')->nullable();
+            $table->string('to')->nullable();
+            $table->longText('content')->nullable();
+            $table->longText('cc')->nullable();
+            $table->longText('bcc')->nullable();
+            $table->string('replyTo')->nullable();
+            $table->string('subject')->nullable();
+            $table->string('priority')->nullable();
+            $table->string('attach')->nullable();
+            $table->string('attachData')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -44,12 +44,14 @@ class SendmailService
     {
         try
         {
+            $data['user_id'] = 1;
             $this->validator->with($data)->passesOrFail();
+            Mail::raw ( $data['content'] , function ( $message) use ($data) {
+                $message->subject ( $data['subject']);
+                $message->from ( 'no-reply@website_name.com' , 'Pererecao' );
+                $message->to ($data['to']);
+            } );
             return $this->repository->create($data);
-//            Mail::send('mail.mail', [], function ($m) use ($data) {
-//                $m->from($data['from'], 'Eleja-se');
-//                $m->to($data['to'], 'guabirabaDev')->subject( $data['content']);
-//            });
 
         }
         catch (ValidationException $exception)

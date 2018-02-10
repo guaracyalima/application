@@ -38,6 +38,7 @@ class Voter extends Model implements Transformable
         'email',
         'whatsapp',
         'created_by',
+        'candidate_id',
     ];
 
     public function occupation (  )
@@ -48,6 +49,11 @@ class Voter extends Model implements Transformable
     public function education (  )
     {
         return $this->belongsTo (Educations::class, 'education_id');
+    }
+
+    public function candidate (  )
+    {
+        return $this->belongsTo (Candidate::class, 'candidate_id');
     }
 
 }

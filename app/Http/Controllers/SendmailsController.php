@@ -67,16 +67,7 @@ class SendmailsController extends Controller
      */
     public function show($id)
     {
-        $sendmail = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $sendmail,
-            ]);
-        }
-
-        return view('sendmails.show', compact('sendmail'));
+        return $this->service->show ($id);
     }
 
 

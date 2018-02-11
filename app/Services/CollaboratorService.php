@@ -107,4 +107,9 @@ class CollaboratorService
     {
         return $this->repository->with (['user', 'candidate', 'education', 'occupation'])->findByField ('candidate_id', $id)->toArray();
     }
+
+    public function meta ( $id )
+    {
+        return $this->repository->find ($id);
+    }
 }

@@ -15,12 +15,12 @@ class CreateSmsTable extends Migration
 	{
 		Schema::create('sms', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('from');
-            $table->string('sender');
-            $table->string('to');
-            $table->longText('content');
-            $table->string('replyTo');
-            $table->string('priority');
+            $table->string('from')->nullable();
+            $table->string('sender')->nullable();
+            $table->string('to')->nullable();
+            $table->longText('content')->nullable();
+            $table->string('replyTo')->nullable();
+            $table->string('priority')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

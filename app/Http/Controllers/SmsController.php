@@ -36,17 +36,9 @@ class SmsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index ()
+    public function index ($id)
     {
-        $this->repository->pushCriteria ( app ( 'Prettus\Repository\Criteria\RequestCriteria' ) );
-        $sms = $this->repository->all ();
-        if ( request ()->wantsJson () ) {
-
-            return response ()->json ( [
-                'data' => $sms ,
-            ] );
-        }
-        return view ( 'sms.index' , compact ( 'sms' ) );
+        return $this->repository->findByField ('user_id', $id);
     }
 
     /**
@@ -163,24 +155,24 @@ class SmsController extends Controller
     public function destroy ( $id )
     {
         $deleted = $this->repository->delete ( $id );
-        if ( request ()->wantsJson () ) {
-
             return response ()->json ( [
                 'message' => 'Sms deleted.' ,
                 'deleted' => $deleted ,
             ] );
-        }
-        return redirect ()->back ()->with ( 'message' , 'Sms deleted.' );
+
+
     }
 
     public function new_message_test ( Request $request )
     {
         $data = $request->all ();
         Nexmo::message ()->send ( [
-            'to' => '5584999430332' ,
+            'to' => $data['to'] ,
             'from' => '5561996291384' ,
-            'text' => $data[ 'message' ]
+            'text' => $data[ 'content' ]
         ] );
+
+        return $this->repository->create ( $data );
 
     }
 }

@@ -44,7 +44,6 @@ class SendmailService
     {
         try
         {
-            $data['user_id'] = 1;
             $this->validator->with($data)->passesOrFail();
             Mail::raw ( $data['content'] , function ( $message) use ($data) {
                 $message->subject ( $data['subject']);
@@ -78,5 +77,15 @@ class SendmailService
                 'message' => $exception->getMessage()
             ];
         }
+    }
+
+    public function show ( $id )
+    {
+        return $this->repository->find ($id);
+    }
+
+    public function collaborator_messages ( $id )
+    {
+        return $this->repository->findByField ('user_id', $id);
     }
 }

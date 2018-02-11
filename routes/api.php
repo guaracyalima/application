@@ -92,7 +92,6 @@ Route::group ( [ 'middleware' => [ 'cors' ] ] , function () {
         Route::get ( 'mymails/{id}' , 'SendmailsController@index' );
         Route::post ( '' , 'SendmailsController@store' );
         Route::get ( '/{id}' , 'SendmailsController@show' );
-        Route::get ( '/{id}' , 'SendmailsController@show' );
         Route::put ( '/{id}' , 'SendmailsController@update' );
         Route::delete ( '/{id}' , 'SendmailsController@destroy' );
     } );
@@ -140,9 +139,13 @@ Route::group ( [ 'middleware' => [ 'cors' ] ] , function () {
         Route::get ( 'created_in_last_month' , 'ReportsController@created_in_last_month' );
         Route::get ( 'created_in_last_week' , 'ReportsController@created_in_last_week' );
         Route::post ( 'agetotage' , 'ReportsController@agetoage' );
-        Route::get ( 'birth_in_the_month' , 'ReportsController@voter_of_birth_is_in_the_month' );
+        Route::get ( 'birth_in_the_month/{id}' , 'ReportsController@voter_of_birth_is_in_the_month' );
         Route::get ( 'mysupporters/{id}' , 'ReportsController@mysupporters' );
         Route::get ( 'myvoters/{id}' , 'ReportsController@myvoters' );
+        Route::get ( 'collaborator_voters/{id}' , 'ReportsController@collaborator_voters' );
+        Route::get ( 'collaborator_messages/{id}' , 'ReportsController@collaborator_messages' );
+        Route::get ( 'my_meta/{id}' , 'ReportsController@my_meta' );
+        Route::get ( 'my_recents_voters/{id}' , 'ReportsController@my_recents_voters' );
     } );
     Route::group ( [ 'prefix' => 'enrichiment_voter' ] , function () {
         Route::get ( '' , 'VoterMoreInformationsController@index' );
@@ -153,8 +156,10 @@ Route::group ( [ 'middleware' => [ 'cors' ] ] , function () {
         Route::post ( '' , 'ResearchesController@store' );
     } );
     Route::group ( [ 'prefix' => 'sms' ] , function () {
-        Route::get ( '' , 'SmsController@index' );
+        Route::get ( '/mymsms/{id}' , 'SmsController@index' );
+        Route::get ( '/{id}' , 'SmsController@show' );
         Route::post ( '' , 'SmsController@new_message_test' );
+        Route::delete ( '{id}' , 'SmsController@destroy' );
     } );
     Route::group ( [ 'prefix' => 'advancedsearch' ] , function () {
         Route::get ( '' , 'ReportsController@advances_search_all' );

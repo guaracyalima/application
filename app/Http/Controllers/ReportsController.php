@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\CandidateService;
 use App\Services\ReportService;
+use App\Services\SendmailService;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
@@ -18,7 +19,7 @@ class ReportsController extends Controller
     private $service;
 
     public function __construct ( CandidateService $candidateService,
-                                  ReportService $service )
+                                  ReportService $service)
     {
         $this->candidateService = $candidateService;
         $this->service = $service;
@@ -82,9 +83,9 @@ class ReportsController extends Controller
         return $this->service->created_in_last_week ();
     }
 
-    public function voter_of_birth_is_in_the_month (  )
+    public function voter_of_birth_is_in_the_month ($id)
     {
-        return $this->service->voter_of_birth_is_in_the_month ();
+        return $this->service->voter_of_birth_is_in_the_month ($id);
     }
 
     public function mysupporters ( $id )
@@ -95,6 +96,26 @@ class ReportsController extends Controller
     public function myvoters ( $id )
     {
         return $this->service->myvoretes ($id);
+    }
+
+    public function collaborator_voters ( $id )
+    {
+        return $this->service->collaborator_voters ($id);
+    }
+
+    public function collaborator_messages ( $id )
+    {
+        return $this->service->collaborator_messages ($id);
+    }
+
+    public function my_meta ( $id )
+    {
+        return $this->service->my_meta ($id);
+    }
+
+    public function my_recents_voters ( $id )
+    {
+        return $this->service->my_recents_voters ($id);
     }
 
 }

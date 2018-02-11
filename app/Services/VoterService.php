@@ -195,13 +195,27 @@ class VoterService
 //        ];
     }
 
-    public function voter_of_birth_is_in_the_month ()
+    public function voter_of_birth_is_in_the_month ($id)
     {
         $date_now_is = Carbon::now ();
         $birth_start = Carbon::parse ( $date_now_is )->startOfMonth ();
         $birth_end = Carbon::parse ( $date_now_is )->endOfMonth ();
         $start = $birth_start->day . '/'.$birth_start->month.'/'.$birth_start->year;
         $end = $birth_end->day . '/'.$birth_end->month.'/'.$birth_end->year;
-        return DB::table ( 'voters' )->whereBetween ( 'birth' , [ $start , $end ] )->get ()->toArray ();
+        return DB::table ( 'voters' )->where('candidate_id', '='  ,$id)->whereBetween ( 'birth' , [ $start , $end ] )->get ()->toArray ();
+    }
+
+    public function collaborator_voters ( $id )
+    {
+        return $this->repository->findByField ('created_by', $id);
+    }
+
+    public function my_recents_voters ( $id )
+    {
+        $date_now_is = Carbon::now ();
+        $start_week = Carbon::parse ( $date_now_is )->startOfWeek ();
+        $end_week = Carbon::parse ( $date_now_is )->endOfWeek ();
+        return DB::table ( 'voters' )->where('created_by', '=', $id)->whereBetween ( 'created_at' , [ $start_week , $end_week ] )->get ()->toArray ();
+        //return $this->repository->findByField ('created_by', $id);
     }
 }

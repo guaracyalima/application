@@ -33,13 +33,18 @@ class ReportService
      * @var ResearchService
      */
     private $researchService;
+    /**
+     * @var SendmailService
+     */
+    private $sendmailService;
 
     public function __construct ( CandidateService $candidateService,
                                   CollaboratorService $collaboratorService,
                                   VoterService $voterService,
                                   PlanService $planService,
                                   AdvancedSearch $advancedSearch,
-                                  ResearchService $researchService)
+                                  ResearchService $researchService,
+                                  SendmailService $sendmailService)
     {
         $this->candidateService = $candidateService;
         $this->collaboratorService = $collaboratorService;
@@ -47,6 +52,7 @@ class ReportService
         $this->planService = $planService;
         $this->advancedSearch = $advancedSearch;
         $this->researchService = $researchService;
+        $this->sendmailService = $sendmailService;
     }
 
     public function number_of_voters (  )
@@ -104,9 +110,9 @@ class ReportService
         return $this->voterService->created_in_last_week ();
     }
 
-    public function voter_of_birth_is_in_the_month (  )
+    public function voter_of_birth_is_in_the_month ( $id )
     {
-        return $this->voterService->voter_of_birth_is_in_the_month();
+        return $this->voterService->voter_of_birth_is_in_the_month($id);
     }
 
     public function supporters ( $id )
@@ -117,5 +123,29 @@ class ReportService
     public function myvoretes ( $id )
     {
         return $this->voterService->index ($id);
+    }
+
+    public function collaborator_voters ( $id )
+    {
+        return $this->voterService->collaborator_voters ($id);
+    }
+
+    public function collaborator_messages ( $id )
+    {
+        return $this->sendmailService->collaborator_messages ($id);
+    }
+
+    public function my_meta ( $id )
+    {
+        $meta_is = $this->collaboratorService->meta ($id);
+        $meta_is = $meta_is['proposed_leads'];
+        $my_voters = count ($this->voterService->collaborator_voters ($id));
+
+        return ($meta_is - $my_voters);
+    }
+
+    public function my_recents_voters ( $id )
+    {
+        return $this->voterService->my_recents_voters ($id);
     }
 }

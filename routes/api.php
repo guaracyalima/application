@@ -90,6 +90,7 @@ Route::group ( [ 'middleware' => [ 'cors' ] ] , function () {
     } );
     Route::group ( [ 'prefix' => 'mailing' ] , function () {
         Route::get ( 'mymails/{id}' , 'SendmailsController@index' );
+        Route::get ( 'inbox/{email}' , 'SendmailsController@inbox' );
         Route::post ( '' , 'SendmailsController@store' );
         Route::get ( '/{id}' , 'SendmailsController@show' );
         Route::put ( '/{id}' , 'SendmailsController@update' );

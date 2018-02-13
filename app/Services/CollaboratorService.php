@@ -56,12 +56,7 @@ class CollaboratorService
 
     public function index ( $id )
     {
-        $pereba =  $this->candidateRepository->findByField ('user_id', $id)->toArray();
-        foreach ($pereba as $item )
-        {
-            $od = $item['id'];
-        }
-        return $this->repository->with (['candidate', 'education', 'occupation'])->findByField ('candidate_id', $od);
+        return $this->repository->with (['candidate', 'education', 'occupation'])->findByField ('candidate_id', $id);
     }
 
     public function all (  )

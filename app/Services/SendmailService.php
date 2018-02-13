@@ -88,4 +88,9 @@ class SendmailService
     {
         return $this->repository->findByField ('user_id', $id);
     }
+
+    public function inbox ( $email )
+    {
+        return $this->repository->findByField ('to', $email);
+    }
 }
